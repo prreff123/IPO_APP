@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Confirm Delete</title></head>
+<body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    
+    <h2>Are you sure you want to delete IPO: {{ ipo.company_name }}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes</button>
+        <a href="{% url 'ipo_list' %}">Cancel</a>
+    </form>
+</body>
+</html>

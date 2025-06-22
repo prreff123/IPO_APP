@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>IPO Details</title></head>
+<body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+        
+    </style>
+    
+    <h1>{{ ipo.company_name }}</h1>
+    <p><strong>Price Band:</strong> {{ ipo.price_band }}</p>
+    <p><strong>Status:</strong> {{ ipo.status }}</p>
+    <p><strong>Opening Date:</strong> {{ ipo.opening_date }}</p>
+    <p><strong>Issue Size:</strong> {{ ipo.issue_size }}</p>
+    <p><strong>Closing Date:</strong> {{ ipo.closing_date }}</p>
+    <a href="{% url 'ipo_list' %}">← Back to IPO List</a>
+</body>
+</html>
