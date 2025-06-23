@@ -1,77 +1,100 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-<head><title>IPO Details</title></head>
-<body>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IPO Detail</title>
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f6fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            background-color: #f9fafb;
+            padding: 40px;
         }
 
-        .ipo-detail-container {
-            background-color: white;
-            padding: 40px;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
             text-align: center;
-            max-width: 400px;
-        }
-
-        .company-logo {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
             margin-bottom: 20px;
         }
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 22px;
-            color: #333;
+        .detail-row {
+            margin-bottom: 15px;
         }
 
-        p {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 30px;
+        .detail-label {
+            font-weight: bold;
+            color: #555;
         }
 
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 6px;
+        a.download-link {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 8px 14px;
+            background-color: #4f46e5;
+            color: white;
             text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s ease;
-            border: none;
-            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        a.download-link:hover {
+            background-color: #3730a3;
         }
     </style>
+</head>
+<body>
 
-    <div class="ipo-detail-container">
-        {% if ipo.logo %}
-            <img src="{{ ipo.logo.url }}" alt="Logo" class="company-logo">
-        {% endif %}
-        <h1>{{ ipo.company_name }}</h1>
-        <p><strong>Price Band:</strong> {{ ipo.price_band }}</p>
-        <p><strong>Status:</strong> {{ ipo.status }}</p>
-        <p><strong>Issue Size:</strong> {{ ipo.issue_size }}</p>
-        <p><strong>Opening Date:</strong> {{ ipo.opening_date }}</p>
-        <p><strong>Closing Date:</strong> {{ ipo.closing_date }}</p>
-        <a href="{% url 'ipo_list' %}">← Back to IPO List</a>
-    </div>   
+<div class="container">
+    {% if ipo.logo %}
+        <img src="{{ ipo.logo.url }}" width="60" height="60" style="object-fit: contain; border-radius: 6px;">
+    {% endif %}
+    <h2>{{ ipo.company_name }} - IPO Details</h2>
+
+    <div class="detail-row">
+        <span class="detail-label">Opening Date:</span> ₹{{ ipo.opening_date }}
+    </div>
+
+    <div class="detail-row">
+        <span class="detail-label">Closing Date:</span> ₹{{ ipo.closing_date }}
+    </div>
+
+    <div class="detail-row">
+        <span class="detail-label">Price Band:</span> ₹{{ ipo.price_band }}
+    </div>
+
+    <div class="detail-row">
+        <span class="detail-label">Issue Size:</span> ₹{{ ipo.issue_size }}
+    </div>
+
+    <!-- RHP PDF -->
+    {% if ipo.rhp_pdf %}
+        <div class="detail-row">
+            <a class="download-link" href="{{ ipo.rhp_pdf.url }}" target="_blank">View RHP PDF</a>
+        </div>
+    {% else %}
+        <p>No RHP PDF uploaded.</p>
+    {% endif %}
+
+    <!-- DRHP PDF -->
+    {% if ipo.drhp_pdf %}
+        <div class="detail-row">
+            <a class="download-link" href="{{ ipo.drhp_pdf.url }}" target="_blank">View DRHP PDF</a>
+        </div>
+    {% else %}
+        <p>No DRHP PDF uploaded.</p>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{% url 'ipo_list' %}" class="download-link" style="background-color: red;">Back to List</a>
+    </div>
+</div>
+
 </body>
 </html>
