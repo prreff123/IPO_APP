@@ -1,14 +1,100 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head><title>Confirm Delete</title></head>
-<body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete IPO Confirmation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    
-    <h2>Are you sure you want to delete IPO: {{ ipo.company_name }}?</h2>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Yes</button>
-        <a href="{% url 'ipo_list' %}">Cancel</a>
-    </form>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .delete-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-confirm {
+            background-color: #e3342f;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #d1d5db;
+            color: #333;
+        }
+
+        .btn-confirm:hover {
+            background-color: #c8232c;
+        }
+
+        .btn-cancel:hover {
+            background-color: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="delete-container">
+        {% if ipo.logo %}
+            <img src="{{ ipo.logo.url }}" alt="Logo" class="company-logo">
+        {% endif %}
+
+        <h2>Delete IPO</h2>
+        <p>Are you sure you want to delete the IPO for <strong>{{ ipo.company_name }}</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-group">
+                <button type="submit" class="btn btn-confirm">Yes, Delete</button>
+                <a href="{% url 'ipo_list' %}" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

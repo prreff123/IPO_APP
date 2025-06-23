@@ -1,25 +1,77 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head><title>IPO Details</title></head>
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f4f6f9;
+            background-color: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 40px;
-            text-align: center;
         }
-        
+
+        .ipo-detail-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
     </style>
-    
-    <h1>{{ ipo.company_name }}</h1>
-    <p><strong>Price Band:</strong> {{ ipo.price_band }}</p>
-    <p><strong>Status:</strong> {{ ipo.status }}</p>
-    <p><strong>Opening Date:</strong> {{ ipo.opening_date }}</p>
-    <p><strong>Issue Size:</strong> {{ ipo.issue_size }}</p>
-    <p><strong>Closing Date:</strong> {{ ipo.closing_date }}</p>
-    <a href="{% url 'ipo_list' %}">← Back to IPO List</a>
+
+    <div class="ipo-detail-container">
+        {% if ipo.logo %}
+            <img src="{{ ipo.logo.url }}" alt="Logo" class="company-logo">
+        {% endif %}
+        <h1>{{ ipo.company_name }}</h1>
+        <p><strong>Price Band:</strong> {{ ipo.price_band }}</p>
+        <p><strong>Status:</strong> {{ ipo.status }}</p>
+        <p><strong>Issue Size:</strong> {{ ipo.issue_size }}</p>
+        <p><strong>Opening Date:</strong> {{ ipo.opening_date }}</p>
+        <p><strong>Closing Date:</strong> {{ ipo.closing_date }}</p>
+        <a href="{% url 'ipo_list' %}">← Back to IPO List</a>
+    </div>   
 </body>
 </html>
